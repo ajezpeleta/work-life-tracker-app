@@ -53,13 +53,33 @@ const Home: NextPage = () => {
     setActiveTimer((prevActiveTimer) => (prevActiveTimer === 1 ? 2 : 1));
   };
 
+  const handleWork = () => {
+    if (!isClicked) {
+      setIsRunning((prevIsRunning) => !prevIsRunning);
+      setIsClicked(true);
+      setActiveTimer(2);
+    }
+    setActiveTimer(1);
+  };
+
+  const handleLife = () => {
+    if (!isClicked) {
+      setIsRunning((prevIsRunning) => !prevIsRunning);
+      setIsClicked(true);
+      setActiveTimer(1);
+    }
+    setActiveTimer(2);
+  };
+
   const handleSleep = () => {
     setIsRunning(false);
     setIsClicked(false);
-    setInactiveTimer(activeTimer);
+    if (activeTimer !== 3) {
+      setInactiveTimer(activeTimer);
+    }
     setTimer1(0);
     setTimer2(0);
-    setActiveTimer(3);
+    // setActiveTimer(3);
   };
 
   const handleReset = () => {
@@ -76,14 +96,14 @@ const Home: NextPage = () => {
     const minutes = Math.floor((time % 360000) / 6000);
     const seconds = Math.floor((time % 6000) / 100);
     // const milliseconds = time % 100;
-    return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds
+    return `${hours.toString().padStart(2, "0")}:${minutes
       .toString()
-      .padStart(2, "0")}`;
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#F6FFDE] to-[#c5ac72]">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-slate-100">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
             <span className="text-[#e2a130]">Work</span>
@@ -92,7 +112,9 @@ const Home: NextPage = () => {
           </h1>
           <div className="grid grid-cols-1 items-center justify-center gap-4 sm:grid-cols-1 md:gap-8">
             <button
-              className="relative flex h-48 w-48 flex-col items-center justify-center gap-4 rounded-full bg-[#e2a130]/30 p-4 text-[#FFF8D6] hover:bg-[#e2a130]/20"
+              className="relative flex h-48 w-48 flex-col
+              items-center justify-center gap-4 rounded-full
+              bg-[#e2a130]/30 p-4 text-[#FFF8D6] hover:bg-[#e2a130]/20"
               onClick={handleToggle}
             >
               {(activeTimer === 1 ||
@@ -108,23 +130,33 @@ const Home: NextPage = () => {
                 </span>
               )}
             </button>
-
+          </div>
+          <div className="grid grid-cols-3 items-center justify-center gap-8">
             <button
-              className="relative flex h-48 w-48 flex-col items-center justify-center gap-4 rounded-full bg-[#e2a130]/30 p-4 text-[#FFF8D6] hover:bg-[#e2a130]/20"
+              className="relative flex h-12 w-36 flex-col items-center justify-center gap-4 rounded-full bg-[#e2a130] p-4 text-2xl font-bold text-[#2f2b27] hover:bg-[#e2a130]/80"
+              onClick={handleWork}
+            >
+              work
+            </button>
+            <button
+              className="relative flex h-12 w-36 flex-col items-center justify-center gap-4 rounded-full bg-[#617A55] p-4 text-2xl font-bold text-[#FFF8D6] hover:bg-[#617A55]/80"
+              onClick={handleLife}
+            >
+              life
+            </button>
+            <button
+              className="relative flex h-12 w-36 flex-col items-center justify-center gap-4 rounded-full bg-[#675D50]/70 p-4 text-2xl font-bold text-[#2f2b27] hover:bg-[#675D50]/50"
               onClick={handleSleep}
             >
-              <span className="text- text-4xl font-bold tracking-tight text-[#675D50]">
-                {formatTime(timer3)}
-              </span>
-            </button>
-
-            <button
-              className="relative flex h-12 w-48 flex-col items-center justify-center gap-4 rounded-full bg-[#e2a130]/30 p-4 text-[#FFF8D6] hover:bg-[#e2a130]/20"
-              onClick={handleReset}
-            >
-              <span className="text-2xl font-bold tracking-tight">Reset</span>
+              end day
             </button>
           </div>
+          <button
+            className="relative flex h-12 w-48 flex-col items-center justify-center gap-4 rounded-full bg-[#e2a130]/30 p-4 text-slate-100 hover:bg-[#e2a130]/20"
+            onClick={handleReset}
+          >
+            <span className="text-2xl font-bold tracking-tight">Reset</span>
+          </button>
         </div>
       </main>
     </>
