@@ -57,6 +57,8 @@ const Home: NextPage = () => {
     setIsRunning(false);
     setIsClicked(false);
     setInactiveTimer(activeTimer);
+    setTimer1(0);
+    setTimer2(0);
     setActiveTimer(3);
   };
 
