@@ -112,9 +112,12 @@ const Home: NextPage = () => {
           </h1>
           <div className="grid grid-cols-1 items-center justify-center gap-4 sm:grid-cols-1 md:gap-8">
             <button
-              className="relative flex h-48 w-48 flex-col
-              items-center justify-center gap-4 rounded-full
-              bg-[#e2a130]/30 p-4 text-[#FFF8D6] hover:bg-[#e2a130]/20"
+              className={`relative flex h-48 w-48 flex-col items-center justify-center gap-4 rounded-full
+              ${
+                activeTimer === 1
+                  ? "bg-[#e2a130]/30 p-4 text-[#FFF8D6] hover:bg-[#e2a130]/20"
+                  : "bg-[#617A55]/30 p-4 text-[#617A55] hover:bg-[#617A55]/20"
+              }`}
               onClick={handleToggle}
             >
               {(activeTimer === 1 ||
